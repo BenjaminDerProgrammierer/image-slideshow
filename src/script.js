@@ -2,6 +2,8 @@ const slideshowContainer = document.getElementById('slideshow');
 let prevBtn;
 let nextBtn;
 
+let autoAdvanceInterval;
+
 // Ten sample images from placeholder service
 // const images = [
 //     { url: 'https://placehold.co/800x600?text=Image+1', alt: 'Image 1' },
@@ -79,20 +81,21 @@ function showImage(index) {
             case indices[4]:
                 imgWrapper.classList.add('next2');
                 break;
-        }       
+        }
 
         slideshowContainer.appendChild(imgWrapper);
     });
 
     // add control buttons
-    
-    
+
+
     prevBtn = document.createElement('button');
     prevBtn.innerHTML = '<img src="icons/chevron-left.svg" alt="Previous" style="height:32px;width:32px;">';
     prevBtn.classList.add('nav-button', 'prev');
     prevBtn.onclick = () => {
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
-        showImage(currentIndex);
+        decrementIndex();
+        clearInterval(autoAdvanceInterval);
+        autoAdvanceInterval = setInterval(decrementIndex, 5000);
     };
     slideshowContainer.appendChild(prevBtn);
 
@@ -100,8 +103,9 @@ function showImage(index) {
     nextBtn.innerHTML = '<img src="icons/chevron-right.svg" alt="Next" style="height:32px;width:32px;">';
     nextBtn.classList.add('nav-button', 'next');
     nextBtn.onclick = () => {
-        currentIndex = (currentIndex + 1) % images.length;
-        showImage(currentIndex);
+        incrementIndex();
+        clearInterval(autoAdvanceInterval);
+        autoAdvanceInterval = setInterval(incrementIndex, 5000);
     };
     slideshowContainer.appendChild(nextBtn);
 }
@@ -110,15 +114,26 @@ function showImage(index) {
 document.addEventListener('keydown', (e) => {
     switch (e.key) {
         case 'ArrowLeft':
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            showImage(currentIndex);
+            prevBtn.click();
             break;
         case 'ArrowRight':
-            currentIndex = (currentIndex + 1) % images.length;
-            showImage(currentIndex);
+            nextBtn.click();
             break;
     }
 });
 
 // Initial display
 showImage(currentIndex);
+autoAdvanceInterval = setInterval(incrementIndex, 5000);
+
+function incrementIndex() {
+    console.log('Incrementing index');
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+}
+
+function decrementIndex() {
+    console.log('Decrementing index');
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showImage(currentIndex);
+}
