@@ -46,9 +46,22 @@ h1 {
         max-width: 100%;
         max-height: 100%;
         object-fit: contain;
-        /* Disable drag and selection */
+        /* Disable image drag and selection */
         user-select: none;
         pointer-events: none;
+    }
+
+    #slideshow-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px 20px;
+        border-radius: 0 0 8px 8px;
+        font-size: 1.5rem;
+        /* Disable text selection */
+        user-select: none;
     }
 
     &::before {
