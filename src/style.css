@@ -30,89 +30,25 @@ h1 {
 
 #slideshow {
     position: relative;
-    width: 80%;
-    width: 1600px;
     height: 600px;
+    width: 70%;
+    max-width: 1600px;
     overflow: hidden;
-}
-
-.nav-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #ffffffaa;
-    border: none;
-    color: white;
-    cursor: pointer;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    transition: background-color 0.3s;
-
-    &:hover {
-        background-color: #ffffffdd;
-    }
-
-    &.prev {
-        left: 10px;
-    }
-
-    &.next {
-        right: 10px;
-    }
-}
-
-.image-wrapper {
-    position: absolute;
-    width: 50%;
     border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 600px;
-    width: 800px;
-
-    &.prev2 {
-        left: -12%;
-        transform: scale(0.5);
-        opacity: 0.5;
-        z-index: 0;
-    }
-
-    &.prev1 {
-        left: 0;
-        transform: scale(0.7);
-        opacity: 0.7;
-        z-index: 1;
-    }
-
-    &.current {
-        left: 25%;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        z-index: 2;
-    }
-
-    &.next1 {
-        right: 0;
-        transform: scale(0.7);
-        opacity: 0.7;
-        z-index: 1;
-    }
-
-    &.next2 {
-        right: -12%;
-        transform: scale(0.5);
-        opacity: 0.5;
-        z-index: 0;
-    }
-
+    transition: box-shadow 0.3s ease;
 
     .slideshow-image {
         max-width: 100%;
         max-height: 100%;
         object-fit: contain;
+        /* Disable drag and selection */
+        user-select: none;
+        pointer-events: none;
     }
 
     &::before {
@@ -127,9 +63,12 @@ h1 {
         background-position: center;
         background-repeat: no-repeat;
         filter: blur(20px);
-        mask: radial-gradient(circle at center, black);
         z-index: -1;
         border-radius: 8px;
         overflow: hidden;
+    }
+
+    &:hover {
+        box-shadow: 0 6px 20px black;
     }
 }
